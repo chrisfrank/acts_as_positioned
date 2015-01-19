@@ -7,9 +7,9 @@ module ActsAsPositioned
   module ClassMethods
 
     def acts_as_positioned(opts={})
-      
+
       positioned_under = opts[:under].nil? ? self.name : "self.#{opts[:under].to_s}.#{self.name.tableize}" rescue "[]"
-      
+
       class_eval <<-CGF
         include ActsAsPositioned::InstanceMethods
         def siblings_in_position
@@ -27,7 +27,7 @@ module ActsAsPositioned
   end
 
   module InstanceMethods
-    
+
     def set_old_position
       if self.position_changed? || self.position.blank?
         self.should_fix_positions = true
